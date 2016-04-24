@@ -8,6 +8,7 @@
 
 import Foundation
 
-let WEATHER_URL = "http://api.openweathermap.org/data/2.5/forecast/city?id=524901&APPID=574d369863384022f8cd8d657b8ed46d"
+let WEATHER_URL = "http://api.openweathermap.org/data/2.5/forecast/city?id=5237476&APPID=574d369863384022f8cd8d657b8ed46d"
 
-typealias DownloadComplete = () -> ()
+typealias DownloadComplete = (Dictionary<String, AnyObject>) -> ()
+

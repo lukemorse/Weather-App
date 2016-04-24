@@ -16,9 +16,12 @@ class Weather {
         Alamofire.request(.GET, url).responseJSON { response in
             let result = response.result
             if let dict = result.value as? Dictionary<String, AnyObject> {
-            print(dict)
+                completed(dict)
             }
         }
-        completed()
     }
 }
+
+
+
+
