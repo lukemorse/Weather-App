@@ -19,6 +19,7 @@ class EViewController: UIViewController, PageDelegate {
         "broken clouds": "cloud",
         "shower rain": "cloud rain",
         "rain": "rain",
+        "light rain": "rain",
         "thunderstorm": "lightning rain",
         "snow": "snow"
     ]
