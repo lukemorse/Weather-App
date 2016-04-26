@@ -35,15 +35,18 @@ class DayViewController: UIViewController, PageDelegate {
     
     @IBOutlet weak var lowLbl: UILabel!
     
-    var weather: Dictionary<String, AnyObject>
+    var weather: Dictionary<String, AnyObject>?
     
     func updateWeather(newWeather : Dictionary<String, AnyObject>) {
         weather = newWeather;
 
+        // had to add this so that we can assign to the IBOutlets
+        self.loadViewIfNeeded()
+        
         var tempMax = -1000.0
         var tempMin = 1000.0
         
-        if let list: [AnyObject] = weather["list"] as? [AnyObject] {
+        if let list: [AnyObject] = weather!["list"] as? [AnyObject] {
             
             for x in list[self.myWeatherRange(list)] {
                 if let main = x["main"] as! Dictionary<String, Double>? {
@@ -104,10 +107,6 @@ class DayViewController: UIViewController, PageDelegate {
         super.viewDidLoad()
         
         getDay()
-        
-        Weather().downloadCurrentWeather { (downloadedWeather: Dictionary<String, AnyObject>) in
-            self.updateWeather(downloadedWeather)
-        }
     }
     
     func getDay() {
