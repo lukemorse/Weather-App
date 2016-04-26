@@ -37,6 +37,8 @@ class BViewController: UIViewController, PageDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        getDay()
+        
         Weather().downloadCurrentWeather { (weather: Dictionary<String, AnyObject>) in
             
             var tempMax = -1000.0
@@ -82,5 +84,8 @@ class BViewController: UIViewController, PageDelegate {
                 }
             }
         }
+    }
+    
+    func getDay() {
     }
 }
