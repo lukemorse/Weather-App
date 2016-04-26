@@ -24,10 +24,11 @@ class CViewController: UIViewController, PageDelegate {
         "snow": "snow"
     ]
     
-    
     @IBOutlet weak var dateLbl: UILabel!
     
     @IBOutlet weak var weatherImg: UIImageView!
+    
+    @IBOutlet weak var tempLbl: UILabel!
     
     @IBOutlet weak var highLbl: UILabel!
     
@@ -78,7 +79,13 @@ class CViewController: UIViewController, PageDelegate {
                 }
                 
                 if let thisDayWeatherAndImage: Dictionary<String, AnyObject> = list[16] as? Dictionary<String, AnyObject> {
-                    
+                    if (self.tempLbl != nil) {
+                        if let main: Dictionary<String, Double> = thisDayWeatherAndImage["main"] as? Dictionary<String, Double> {
+                            let tempF = round((main["temp"]! * 9/5 - 459.67) * 10) / 10
+                            self.tempLbl.text = "\(tempF)º F"
+                        }
+                    }
+
                     if let weather: [AnyObject] = thisDayWeatherAndImage["weather"] as? [AnyObject] {
                         if let weatherDesc: Dictionary<String, AnyObject> = weather[0] as? Dictionary<String, AnyObject> {
                             if let descString: String = weatherDesc["description"] as? String {

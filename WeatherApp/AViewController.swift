@@ -80,9 +80,11 @@ class AViewController: UIViewController, PageDelegate {
                 
                 
                 if let currentWeatherAndImage: Dictionary<String, AnyObject> = list[0] as? Dictionary<String, AnyObject> {
-                    if let main: Dictionary<String, Double> = currentWeatherAndImage["main"] as? Dictionary<String, Double> {
-                        let tempF = round((main["temp"]! * 9/5 - 459.67) * 10) / 10
-                        self.tempLbl.text = "\(tempF)º F"
+                    if (self.tempLbl != nil) {
+                        if let main: Dictionary<String, Double> = currentWeatherAndImage["main"] as? Dictionary<String, Double> {
+                            let tempF = round((main["temp"]! * 9/5 - 459.67) * 10) / 10
+                            self.tempLbl.text = "\(tempF)º F"
+                        }
                     }
                     if let weather: [AnyObject] = currentWeatherAndImage["weather"] as? [AnyObject] {
                         if let weatherDesc: Dictionary<String, AnyObject> = weather[0] as? Dictionary<String, AnyObject> {
