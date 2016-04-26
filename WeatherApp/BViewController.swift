@@ -79,7 +79,8 @@ class BViewController: UIViewController, PageDelegate {
                 }
                 
                 
-                if let tomorrowWeather: Dictionary<String, AnyObject> = list[8] as? Dictionary<String, AnyObject> {
+                let firstIndexThisDay = self.myWeatherRange(list).startIndex
+                if let tomorrowWeather: Dictionary<String, AnyObject> = list[firstIndexThisDay] as? Dictionary<String,  AnyObject> {
                     if (self.tempLbl != nil) {
                         if let main: Dictionary<String, Double> = tomorrowWeather["main"] as? Dictionary<String, Double> {
                             let tempF = round((main["temp"]! * 9/5 - 459.67) * 10) / 10
