@@ -35,6 +35,61 @@ class DayViewController: UIViewController, PageDelegate {
     
     @IBOutlet weak var lowLbl: UILabel!
     
+    var weather: Dictionary<String, AnyObject>
+    
+    func updateWeather(newWeather : Dictionary<String, AnyObject>) {
+        weather = newWeather;
+
+        var tempMax = -1000.0
+        var tempMin = 1000.0
+        
+        if let list: [AnyObject] = weather["list"] as? [AnyObject] {
+            
+            for x in list[self.myWeatherRange(list)] {
+                if let main = x["main"] as! Dictionary<String, Double>? {
+                    
+                    //                        FIGURE OUT TEMP MIN
+                    if let tempMinTest = main["temp_min"] {
+                        if tempMin > tempMinTest {
+                            tempMin = tempMinTest
+                            let tempF = round((tempMin * 9/5 - 459.67) * 10) / 10
+                            self.lowLbl.text = "Low: " + String(tempF) + "º F"
+                        }
+                    }
+                    
+                    
+                    //                        FIGURE OUT TEMP MAX
+                    if let tempMaxTest = main["temp_max"] {
+                        if tempMax < tempMaxTest {
+                            tempMax = tempMaxTest
+                            let tempF = round((tempMax * 9/5 - 459.67) * 10) / 10
+                            self.highLbl.text = "High: " + String(tempF) + "º F"
+                        }
+                    }
+                }
+            }
+            
+            let firstIndexThisDay = self.myWeatherRange(list).startIndex
+            if let thisDayWeatherImage: Dictionary<String, AnyObject> = list[firstIndexThisDay] as? Dictionary<String, AnyObject> {
+                if (self.tempLbl != nil) {
+                    if let main: Dictionary<String, Double> = thisDayWeatherImage["main"] as? Dictionary<String, Double> {
+                        let tempF = round((main["temp"]! * 9/5 - 459.67) * 10) / 10
+                        self.tempLbl.text = "\(tempF)º F"
+                    }
+                }
+                
+                if let weather: [AnyObject] = thisDayWeatherImage["weather"] as? [AnyObject] {
+                    if let weatherDesc: Dictionary<String, AnyObject> = weather[0] as? Dictionary<String, AnyObject> {
+                        if let descString: String = weatherDesc["description"] as? String {
+                            self.weatherImg.image = UIImage(named: self.picDict[descString]!)
+                            
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     func myWeatherRange(list: [AnyObject]) -> Range<Int> {
         // this must be overridden by child classes
         return 0...0;
@@ -50,56 +105,8 @@ class DayViewController: UIViewController, PageDelegate {
         
         getDay()
         
-        Weather().downloadCurrentWeather { (weather: Dictionary<String, AnyObject>) in
-            
-            var tempMax = -1000.0
-            var tempMin = 1000.0
-            
-            if let list: [AnyObject] = weather["list"] as? [AnyObject] {
-                
-                for x in list[self.myWeatherRange(list)] {
-                    if let main = x["main"] as! Dictionary<String, Double>? {
-                        
-                        //                        FIGURE OUT TEMP MIN
-                        if let tempMinTest = main["temp_min"] {
-                            if tempMin > tempMinTest {
-                                tempMin = tempMinTest
-                                let tempF = round((tempMin * 9/5 - 459.67) * 10) / 10
-                                self.lowLbl.text = "Low: " + String(tempF) + "º F"
-                            }
-                        }
-                        
-                        
-                        //                        FIGURE OUT TEMP MAX
-                        if let tempMaxTest = main["temp_max"] {
-                            if tempMax < tempMaxTest {
-                                tempMax = tempMaxTest
-                                let tempF = round((tempMax * 9/5 - 459.67) * 10) / 10
-                                self.highLbl.text = "High: " + String(tempF) + "º F"
-                            }
-                        }
-                    }
-                }
-                
-                let firstIndexThisDay = self.myWeatherRange(list).startIndex
-                if let thisDayWeatherImage: Dictionary<String, AnyObject> = list[firstIndexThisDay] as? Dictionary<String, AnyObject> {
-                    if (self.tempLbl != nil) {
-                        if let main: Dictionary<String, Double> = thisDayWeatherImage["main"] as? Dictionary<String, Double> {
-                            let tempF = round((main["temp"]! * 9/5 - 459.67) * 10) / 10
-                            self.tempLbl.text = "\(tempF)º F"
-                        }
-                    }
-                    
-                    if let weather: [AnyObject] = thisDayWeatherImage["weather"] as? [AnyObject] {
-                        if let weatherDesc: Dictionary<String, AnyObject> = weather[0] as? Dictionary<String, AnyObject> {
-                            if let descString: String = weatherDesc["description"] as? String {
-                                self.weatherImg.image = UIImage(named: self.picDict[descString]!)
-                                
-                            }
-                        }
-                    }
-                }
-            }
+        Weather().downloadCurrentWeather { (downloadedWeather: Dictionary<String, AnyObject>) in
+            self.updateWeather(downloadedWeather)
         }
     }
     
