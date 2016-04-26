@@ -24,6 +24,8 @@ class AViewController: UIViewController, PageDelegate {
         "snow": "snow"
     ]
     
+    @IBOutlet weak var dateLbl: UILabel!
+
     @IBOutlet weak var weatherImg: UIImageView!
     
     @IBOutlet weak var tempLbl: UILabel!
@@ -34,6 +36,10 @@ class AViewController: UIViewController, PageDelegate {
     
     func myWeatherRange(list: [AnyObject]) -> Range<Int> {
         return 0...7
+    }
+    
+    func myDayOffset() -> Int {
+        return 0;
     }
     
     override func viewDidLoad() {
@@ -91,7 +97,14 @@ class AViewController: UIViewController, PageDelegate {
         }
     }
     
-    func getDay() {        
+    func getDay() {
+        if (dateLbl != nil) {
+            let today = NSDate()
+            let day = NSDate(timeInterval: 60 * 60 * 24 * Double(myDayOffset()), sinceDate: today)
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateStyle = NSDateFormatterStyle.FullStyle
+            let convertedDate = dateFormatter.stringFromDate(day)
+            dateLbl.text = "\(convertedDate)"
+        }
     }
-    
 }

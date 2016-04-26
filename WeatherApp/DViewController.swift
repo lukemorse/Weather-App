@@ -37,6 +37,10 @@ class DViewController: UIViewController, PageDelegate {
         return 24...31
     }
     
+    func myDayOffset() -> Int {
+        return 3;
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -89,11 +93,13 @@ class DViewController: UIViewController, PageDelegate {
     }
     
     func getDay() {
-        let today = NSDate()
-        let day = NSDate(timeInterval: 60 * 60 * 24 * 3, sinceDate: today)
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateStyle = NSDateFormatterStyle.FullStyle
-        let convertedDate = dateFormatter.stringFromDate(day)
-        dateLbl.text = "\(convertedDate)"
+        if (dateLbl != nil) {
+            let today = NSDate()
+            let day = NSDate(timeInterval: 60 * 60 * 24 * Double(myDayOffset()), sinceDate: today)
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateStyle = NSDateFormatterStyle.FullStyle
+            let convertedDate = dateFormatter.stringFromDate(day)
+            dateLbl.text = "\(convertedDate)"
+        }
     }
 }
