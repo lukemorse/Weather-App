@@ -33,6 +33,10 @@ class CViewController: UIViewController, PageDelegate {
     
     @IBOutlet weak var lowLbl: UILabel!
     
+    func myWeatherRange(list: [AnyObject]) -> Range<Int> {
+        return 16...23
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,7 +49,7 @@ class CViewController: UIViewController, PageDelegate {
             
             if let list: [AnyObject] = weather["list"] as? [AnyObject] {
                 
-                for x in list[16...23] {
+                for x in list[self.myWeatherRange(list)] {
                     if let main = x["main"] as! Dictionary<String, Double>? {
                         
                         //                        FIGURE OUT TEMP MIN
