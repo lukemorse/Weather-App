@@ -16,6 +16,7 @@ import UIKit
 
 @objc protocol PageDelegate {
     var pageNumber: Int { get set }
+    func updateWeather(weather: Dictionary<String, AnyObject>)
 }
 
 class ViewController: UIPageViewController, UIPageViewControllerDataSource {
@@ -23,6 +24,7 @@ class ViewController: UIPageViewController, UIPageViewControllerDataSource {
     private let identifiers = ["A", "B", "C", "D", "E"]  // the storyboard ids for the four child view controllers
     private var cache = NSCache()
     private var observer: NSObjectProtocol!
+    private var weather : Dictionary<String, AnyObject>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +35,14 @@ class ViewController: UIPageViewController, UIPageViewControllerDataSource {
         self.dataSource = self
         
         setViewControllers([viewControllerForPage(0)!], direction: .Forward, animated: false, completion: nil)
+
+        Weather().downloadCurrentWeather { (downloadedWeather: Dictionary<String, AnyObject>) in
+            self.weather = downloadedWeather;
+            for viewController in self.viewControllers! {
+                let dayViewController = viewController as! DayViewController
+                dayViewController.updateWeather(downloadedWeather)
+            }
+        }
     }
     
     deinit {
@@ -57,7 +67,11 @@ class ViewController: UIPageViewController, UIPageViewControllerDataSource {
                 return controller
             }
             if let controller = storyboard?.instantiateViewControllerWithIdentifier(identifiers[page]) {
-                (controller as? PageDelegate)?.pageNumber = page
+                let pageController = controller as? PageDelegate
+                pageController?.pageNumber = page
+                if (self.weather != nil) {
+                    pageController?.updateWeather(self.weather!)
+                }
                 cache.setObject(controller, forKey: page)
                 return controller
             }

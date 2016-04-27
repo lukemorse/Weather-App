@@ -20,6 +20,7 @@
 		AF01CF941CCA8E29006483D2 /* EViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF01CF8F1CCA8E29006483D2 /* EViewController.swift */; };
 		AFAA97E01CCA990200628B6E /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFAA97DF1CCA990200628B6E /* Weather.swift */; };
 		AFAA97E21CCA995900628B6E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFAA97E11CCA995900628B6E /* Constants.swift */; };
+		B51194AC1CCFD38600A134C4 /* DayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51194AB1CCFD38600A134C4 /* DayViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		AF01CF8F1CCA8E29006483D2 /* EViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EViewController.swift; sourceTree = "<group>"; };
 		AFAA97DF1CCA990200628B6E /* Weather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		AFAA97E11CCA995900628B6E /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		B51194AB1CCFD38600A134C4 /* DayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayViewController.swift; sourceTree = "<group>"; };
 		F7A52C6F97FE71A921AEF3EA /* Pods-WeatherApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-WeatherApp/Pods-WeatherApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -96,6 +98,7 @@
 				AF01CF801CCA8DD4006483D2 /* Assets.xcassets */,
 				AF01CF821CCA8DD4006483D2 /* LaunchScreen.storyboard */,
 				AF01CF851CCA8DD4006483D2 /* Info.plist */,
+				B51194AB1CCFD38600A134C4 /* DayViewController.swift */,
 			);
 			path = WeatherApp;
 			sourceTree = "<group>";
@@ -233,6 +236,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AFAA97E01CCA990200628B6E /* Weather.swift in Sources */,
+				B51194AC1CCFD38600A134C4 /* DayViewController.swift in Sources */,
 				AF01CF7C1CCA8DD4006483D2 /* ViewController.swift in Sources */,
 				AF01CF931CCA8E29006483D2 /* DViewController.swift in Sources */,
 				AF01CF911CCA8E29006483D2 /* BViewController.swift in Sources */,
